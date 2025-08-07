@@ -87,7 +87,7 @@
             </div>
 
             <!-- Краткая сводка -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
                     📋 Краткая сводка (июль 2025)
                 </h2>
@@ -107,6 +107,67 @@
                             <li>• Валовая прибыль: 2.7М ₽</li>
                             <li>• Наценка: 21.9%</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Прирост с сентября 2024 -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                    📊 Прирост с сентября 2024 (июль 2025)
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border-l-4 border-red-500 pl-4">
+                        <h3 class="font-semibold text-red-600 mb-3">Вайлдберриз</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Выручка:</span>
+                                <span id="wb-revenue-growth" class="text-sm font-medium"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Валовая прибыль:</span>
+                                <span id="wb-profit-growth" class="text-sm font-medium"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Наценка:</span>
+                                <span id="wb-margin-growth" class="text-sm font-medium"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h3 class="font-semibold text-purple-600 mb-3">Интернет Решения ООО (Озон)</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Выручка:</span>
+                                <span id="ozon-revenue-growth" class="text-sm font-medium"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Валовая прибыль:</span>
+                                <span id="ozon-profit-growth" class="text-sm font-medium"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Наценка:</span>
+                                <span id="ozon-margin-growth" class="text-sm font-medium"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Общая таблица прироста по месяцам -->
+                <div class="mt-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Прирост выручки по месяцам (% к сентябрю 2024)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Месяц</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Вайлдберриз</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Озон</th>
+                                </tr>
+                            </thead>
+                            <tbody id="growth-table" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -219,6 +280,81 @@
                 }
             }
         });
+
+        // Расчет и отображение прироста с сентября 2024
+        function calculateAndDisplayGrowth() {
+            const baseMonth = 0; // индекс сентября 2024
+            const lastMonth = data.months.length - 1; // индекс июля 2025
+            
+            // Функция для расчета прироста
+            function calculateGrowth(currentValue, baseValue) {
+                return ((currentValue - baseValue) / baseValue) * 100;
+            }
+            
+            // Функция для форматирования процента с цветом
+            function formatGrowthPercent(growth) {
+                const isPositive = growth >= 0;
+                const color = isPositive ? 'text-green-600' : 'text-red-600';
+                const sign = isPositive ? '+' : '';
+                return `<span class="${color}">${sign}${growth.toFixed(1)}%</span>`;
+            }
+
+            // Расчет прироста для Вайлдберриз
+            const wbRevenueGrowth = calculateGrowth(
+                data.wildberries.revenue[lastMonth], 
+                data.wildberries.revenue[baseMonth]
+            );
+            const wbProfitGrowth = calculateGrowth(
+                data.wildberries.profit[lastMonth], 
+                data.wildberries.profit[baseMonth]
+            );
+            const wbMarginGrowth = calculateGrowth(
+                data.wildberries.margin[lastMonth], 
+                data.wildberries.margin[baseMonth]
+            );
+
+            // Расчет прироста для Озон
+            const ozonRevenueGrowth = calculateGrowth(
+                data.ozon.revenue[lastMonth], 
+                data.ozon.revenue[baseMonth]
+            );
+            const ozonProfitGrowth = calculateGrowth(
+                data.ozon.profit[lastMonth], 
+                data.ozon.profit[baseMonth]
+            );
+            const ozonMarginGrowth = calculateGrowth(
+                data.ozon.margin[lastMonth], 
+                data.ozon.margin[baseMonth]
+            );
+
+            // Отображение в интерфейсе
+            document.getElementById('wb-revenue-growth').innerHTML = formatGrowthPercent(wbRevenueGrowth);
+            document.getElementById('wb-profit-growth').innerHTML = formatGrowthPercent(wbProfitGrowth);
+            document.getElementById('wb-margin-growth').innerHTML = formatGrowthPercent(wbMarginGrowth);
+            
+            document.getElementById('ozon-revenue-growth').innerHTML = formatGrowthPercent(ozonRevenueGrowth);
+            document.getElementById('ozon-profit-growth').innerHTML = formatGrowthPercent(ozonProfitGrowth);
+            document.getElementById('ozon-margin-growth').innerHTML = formatGrowthPercent(ozonMarginGrowth);
+
+            // Заполнение таблицы прироста по месяцам
+            const tableBody = document.getElementById('growth-table');
+            for (let i = 0; i < data.months.length; i++) {
+                const wbGrowth = i === 0 ? 0 : calculateGrowth(data.wildberries.revenue[i], data.wildberries.revenue[baseMonth]);
+                const ozonGrowth = i === 0 ? 0 : calculateGrowth(data.ozon.revenue[i], data.ozon.revenue[baseMonth]);
+                
+                const row = document.createElement('tr');
+                row.className = i % 2 === 0 ? 'bg-gray-50' : 'bg-white';
+                row.innerHTML = `
+                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${data.months[i]}</td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm">${formatGrowthPercent(wbGrowth)}</td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm">${formatGrowthPercent(ozonGrowth)}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+        }
+
+        // Вызов функции расчета прироста
+        calculateAndDisplayGrowth();
 
         // График 2: Себестоимость
         const costCtx = document.getElementById('costChart').getContext('2d');
