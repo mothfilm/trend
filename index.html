@@ -32,7 +32,7 @@
                     Динамика показателей по магазинам
                 </h1>
                 <p class="text-gray-600">
-                    Тренды Вайлдберриз vs Интернет Решения ООО (Озон) • сентябрь 2024 - июль 2025
+                    Тренды Вайлдберриз vs Интернет Решения ООО (Озон) • сентябрь 2024 - июль 2025 (11 месяцев)
                 </p>
             </div>
 
@@ -101,7 +101,7 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
                     📋 Краткая сводка (июль 2025)
                 </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="border-l-4 border-red-500 pl-4">
                         <h3 class="font-semibold text-red-600 mb-2">Вайлдберриз</h3>
                         <ul class="text-sm text-gray-600 space-y-1">
@@ -120,6 +120,15 @@
                             <li id="ozon-profitability-display">• Рентабельность: Loading...</li>
                         </ul>
                     </div>
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="font-semibold text-green-600 mb-2">Общий итог</h3>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li id="total-revenue-display">• Выручка: Loading...</li>
+                            <li id="total-profit-display">• Валовая прибыль: Loading...</li>
+                            <li id="total-margin-display">• Наценка: Loading...</li>
+                            <li id="total-profitability-display">• Рентабельность: Loading...</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -128,7 +137,7 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
                     📊 Прирост с сентября 2024 (июль 2025)
                 </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="border-l-4 border-red-500 pl-4">
                         <h3 class="font-semibold text-red-600 mb-3">Вайлдберриз</h3>
                         <div class="space-y-2">
@@ -171,6 +180,27 @@
                             </div>
                         </div>
                     </div>
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="font-semibold text-green-600 mb-3">Общий итог</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Выручка:</span>
+                                <span id="total-revenue-growth" class="text-sm font-medium"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Валовая прибыль:</span>
+                                <span id="total-profit-growth" class="text-sm font-medium"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Наценка:</span>
+                                <span id="total-margin-growth" class="text-sm font-medium"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Рентабельность:</span>
+                                <span id="total-profitability-growth" class="text-sm font-medium"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Общая таблица прироста по месяцам -->
@@ -183,6 +213,7 @@
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Месяц</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Вайлдберриз</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Озон</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Общий итог</th>
                                 </tr>
                             </thead>
                             <tbody id="growth-table" class="bg-white divide-y divide-gray-200">
@@ -195,24 +226,24 @@
     </div>
 
     <script>
-        // Данные из Excel файлов
+        // Данные из Excel файлов (проверенные и скорректированные)
         const rawData = {
             months: [
                 "сентябрь 2024", "октябрь 2024", "ноябрь 2024", "Декабрь 2024",
                 "Яеварь 2025", "февраль 2025", "март 2025", "Апрель 2025",
-                "июнь 2025", "июль 2025"
+                "май 2025", "июнь 2025", "июль 2025"
             ],
             wildberries: {
-                revenue: [5061499.6, 3631804.04, 4296754, 13942410.58, 2196432.59, 4025213, 6175693, 5674564.96, 6649356, 3933461.14],
-                cost: [2606218.37, 2606218.37, 2256487, 9708836.37, 1078915.61, 2124256, 3507219, 3422528.94, 3941421, 1934417.68],
-                expenses: [818363.28, 818363.28, 820414, 2828925, 475453, 503020, 770128, 1049231.95, 1380637, 1595713.83],
-                profit: [1636917.95, 207222.39, 1219853, 1404649.21, 642063.98, 1397937, 1898346, 1202804.07, 1327298, 403329.63]
+                revenue: [5061499.6, 3631804.04, 4296754, 5008242, 2196432.59, 4025213, 6175693, 5674564.96, 5284511.76, 6649356, 3933461.14],
+                cost: [2606218.37, 1765480, 2256487, 2624292, 1078915.61, 2124256, 3507219, 3422528.94, 2974300.92, 3941421, 1934417.68],
+                expenses: [818363.28, 693959, 820414, 849207, 475453, 503020, 770128, 1049231.95, 1024672.00, 1380637, 1595713.83],
+                profit: [1636917.95, 1172365.04, 1219853, 1534743, 642063.98, 1397937, 1898346, 1202804.07, 1285538.84, 1327298, 403329.63]
             },
             ozon: {
-                revenue: [9478101.03, 11106722.23, 12948704, 13827524.64, 14399817.7, 13388232, 16858885, 12986901.1, 12416880, 15245155.22],
-                cost: [4793858.65, 4793858.65, 6436076, 7491593.3, 6937700.83, 6903617, 9297120, 7117001.02, 7510481, 8831417.36],
-                expenses: [3027975.14, 3027975.14, 4162147, 4021184, 4404780, 3504031, 3505049, 2962843.3, 1965388, 3674050.1],
-                profit: [1656267.24, 3284888.44, 2350481, 2314747.34, 3057336.87, 2980584, 4056716, 2907056.78, 2941011, 2739687.76]
+                revenue: [9478101.03, 11106722.23, 12948704, 15579920, 14399817.7, 13388232, 16858885, 12986901.1, 15676967.84, 12416880, 15245155.22],
+                cost: [4793858.65, 5750748, 6436076, 7560970, 6937700.83, 6903617, 9297120, 7117001.02, 8272715.16, 7510481, 8831417.36],
+                expenses: [3027975.14, 2867115, 4162147, 5314721, 4404780, 3504031, 3505049, 2962843.3, 3488338.00, 1965388, 3674050.1],
+                profit: [1656267.24, 2488859.23, 2350481, 2704229, 3057336.87, 2980584, 4056716, 2907056.78, 3915914.68, 2941011, 2739687.76]
             }
         };
 
@@ -379,6 +410,23 @@
                 data.ozon.profitability[baseMonth]
             );
 
+            // Расчет прироста для общих показателей
+            const totalRevenueBase = data.wildberries.revenue[baseMonth] + data.ozon.revenue[baseMonth];
+            const totalRevenueLast = data.wildberries.revenue[lastMonth] + data.ozon.revenue[lastMonth];
+            const totalProfitBase = data.wildberries.profit[baseMonth] + data.ozon.profit[baseMonth];
+            const totalProfitLast = data.wildberries.profit[lastMonth] + data.ozon.profit[lastMonth];
+            const totalCostBase = data.wildberries.cost[baseMonth] + data.ozon.cost[baseMonth];
+            const totalCostLast = data.wildberries.cost[lastMonth] + data.ozon.cost[lastMonth];
+            
+            const totalRevenueGrowth = calculateGrowth(totalRevenueLast, totalRevenueBase);
+            const totalProfitGrowth = calculateGrowth(totalProfitLast, totalProfitBase);
+            const totalMarginBase = (totalProfitBase / totalCostBase) * 100;
+            const totalMarginLast = (totalProfitLast / totalCostLast) * 100;
+            const totalMarginGrowth = calculateGrowth(totalMarginLast, totalMarginBase);
+            const totalProfitabilityBase = (totalProfitBase / totalRevenueBase) * 100;
+            const totalProfitabilityLast = (totalProfitLast / totalRevenueLast) * 100;
+            const totalProfitabilityGrowth = calculateGrowth(totalProfitabilityLast, totalProfitabilityBase);
+
             // Отображение в интерфейсе
             document.getElementById('wb-revenue-growth').innerHTML = formatGrowthPercent(wbRevenueGrowth);
             document.getElementById('wb-profit-growth').innerHTML = formatGrowthPercent(wbProfitGrowth);
@@ -390,11 +438,18 @@
             document.getElementById('ozon-margin-growth').innerHTML = formatGrowthPercent(ozonMarginGrowth);
             document.getElementById('ozon-profitability-growth').innerHTML = formatGrowthPercent(ozonProfitabilityGrowth);
 
+            document.getElementById('total-revenue-growth').innerHTML = formatGrowthPercent(totalRevenueGrowth);
+            document.getElementById('total-profit-growth').innerHTML = formatGrowthPercent(totalProfitGrowth);
+            document.getElementById('total-margin-growth').innerHTML = formatGrowthPercent(totalMarginGrowth);
+            document.getElementById('total-profitability-growth').innerHTML = formatGrowthPercent(totalProfitabilityGrowth);
+
             // Заполнение таблицы прироста по месяцам
             const tableBody = document.getElementById('growth-table');
             for (let i = 0; i < data.months.length; i++) {
                 const wbGrowth = i === 0 ? 0 : calculateGrowth(data.wildberries.revenue[i], data.wildberries.revenue[baseMonth]);
                 const ozonGrowth = i === 0 ? 0 : calculateGrowth(data.ozon.revenue[i], data.ozon.revenue[baseMonth]);
+                const totalRevenueCurrent = data.wildberries.revenue[i] + data.ozon.revenue[i];
+                const totalGrowth = i === 0 ? 0 : calculateGrowth(totalRevenueCurrent, totalRevenueBase);
                 
                 const row = document.createElement('tr');
                 row.className = i % 2 === 0 ? 'bg-gray-50' : 'bg-white';
@@ -402,6 +457,7 @@
                     <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${data.months[i]}</td>
                     <td class="px-4 py-4 whitespace-nowrap text-sm">${formatGrowthPercent(wbGrowth)}</td>
                     <td class="px-4 py-4 whitespace-nowrap text-sm">${formatGrowthPercent(ozonGrowth)}</td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm">${formatGrowthPercent(totalGrowth)}</td>
                 `;
                 tableBody.appendChild(row);
             }
@@ -635,6 +691,7 @@
         function updateSummaryDisplay() {
             const lastIndex = data.months.length - 1;
             
+            // Данные отдельных платформ
             document.getElementById('wb-margin-display').textContent = 
                 `• Наценка: ${data.wildberries.margin[lastIndex].toFixed(1)}%`;
             document.getElementById('wb-profitability-display').textContent = 
@@ -644,6 +701,23 @@
                 `• Наценка: ${data.ozon.margin[lastIndex].toFixed(1)}%`;
             document.getElementById('ozon-profitability-display').textContent = 
                 `• Рентабельность: ${data.ozon.profitability[lastIndex].toFixed(1)}%`;
+                
+            // Расчет общих показателей
+            const totalRevenue = data.wildberries.revenue[lastIndex] + data.ozon.revenue[lastIndex];
+            const totalCost = data.wildberries.cost[lastIndex] + data.ozon.cost[lastIndex];
+            const totalProfit = data.wildberries.profit[lastIndex] + data.ozon.profit[lastIndex];
+            const totalMargin = (totalProfit / totalCost) * 100;
+            const totalProfitability = (totalProfit / totalRevenue) * 100;
+            
+            // Отображение общих показателей
+            document.getElementById('total-revenue-display').textContent = 
+                `• Выручка: ${formatCurrency(totalRevenue)}`;
+            document.getElementById('total-profit-display').textContent = 
+                `• Валовая прибыль: ${formatCurrency(totalProfit)}`;
+            document.getElementById('total-margin-display').textContent = 
+                `• Наценка: ${totalMargin.toFixed(1)}%`;
+            document.getElementById('total-profitability-display').textContent = 
+                `• Рентабельность: ${totalProfitability.toFixed(1)}%`;
         }
     </script>
 </body>
