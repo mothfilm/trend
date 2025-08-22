@@ -105,6 +105,8 @@
                     <div class="border-l-4 border-red-500 pl-4">
                         <h3 class="font-semibold text-red-600 mb-2">Вайлдберриз</h3>
                         <ul class="text-sm text-gray-600 space-y-1">
+                            <li id="wb-total-revenue">• Общая выручка: Loading...</li>
+                            <li id="wb-total-profit">• Общая прибыль: Loading...</li>
                             <li id="wb-avg-revenue">• Средняя выручка: Loading...</li>
                             <li id="wb-avg-profit">• Средняя прибыль: Loading...</li>
                             <li id="wb-avg-margin">• Средняя наценка: Loading...</li>
@@ -116,6 +118,8 @@
                     <div class="border-l-4 border-purple-500 pl-4">
                         <h3 class="font-semibold text-purple-600 mb-2">Интернет Решения ООО (Озон)</h3>
                         <ul class="text-sm text-gray-600 space-y-1">
+                            <li id="ozon-total-revenue">• Общая выручка: Loading...</li>
+                            <li id="ozon-total-profit">• Общая прибыль: Loading...</li>
                             <li id="ozon-avg-revenue">• Средняя выручка: Loading...</li>
                             <li id="ozon-avg-profit">• Средняя прибыль: Loading...</li>
                             <li id="ozon-avg-margin">• Средняя наценка: Loading...</li>
@@ -127,6 +131,8 @@
                     <div class="border-l-4 border-green-500 pl-4">
                         <h3 class="font-semibold text-green-600 mb-2">Общий итог</h3>
                         <ul class="text-sm text-gray-600 space-y-1">
+                            <li id="total-total-revenue">• Общая выручка: Loading...</li>
+                            <li id="total-total-profit">• Общая прибыль: Loading...</li>
                             <li id="total-avg-revenue">• Средняя выручка: Loading...</li>
                             <li id="total-avg-profit">• Средняя прибыль: Loading...</li>
                             <li id="total-avg-margin">• Средняя наценка: Loading...</li>
@@ -213,6 +219,11 @@
 
         // Функция аналитики эффективности
         function updateEfficiencyAnalysis() {
+            // Функция для расчета суммы
+            function sum(arr) {
+                return arr.reduce((a, b) => a + b, 0);
+            }
+            
             // Функция для расчета среднего значения
             function average(arr) {
                 return arr.reduce((a, b) => a + b, 0) / arr.length;
@@ -249,6 +260,8 @@
             }
 
             // Расчеты для Вайлдберриз
+            const wbTotalRevenue = sum(data.wildberries.revenue);
+            const wbTotalProfit = sum(data.wildberries.profit);
             const wbAvgRevenue = average(data.wildberries.revenue);
             const wbAvgProfit = average(data.wildberries.profit);
             const wbAvgMargin = average(data.wildberries.margin);
@@ -257,6 +270,8 @@
             const wbTrend = getTrend(data.wildberries.revenue);
             
             // Расчеты для Озон
+            const ozonTotalRevenue = sum(data.ozon.revenue);
+            const ozonTotalProfit = sum(data.ozon.profit);
             const ozonAvgRevenue = average(data.ozon.revenue);
             const ozonAvgProfit = average(data.ozon.profit);
             const ozonAvgMargin = average(data.ozon.margin);
@@ -271,6 +286,8 @@
             const totalMargin = totalProfit.map((profit, i) => (profit / totalCost[i]) * 100);
             const totalProfitability = totalProfit.map((profit, i) => (profit / totalRevenue[i]) * 100);
             
+            const totalTotalRevenue = sum(totalRevenue);
+            const totalTotalProfit = sum(totalProfit);
             const totalAvgRevenue = average(totalRevenue);
             const totalAvgProfit = average(totalProfit);
             const totalAvgMargin = average(totalMargin);
@@ -279,6 +296,8 @@
             const totalTrend = getTrend(totalRevenue);
 
             // Отображение данных Вайлдберриз
+            document.getElementById('wb-total-revenue').innerHTML = `• Общая выручка: <span class="font-semibold text-red-700">${formatCurrency(wbTotalRevenue)}</span>`;
+            document.getElementById('wb-total-profit').innerHTML = `• Общая прибыль: <span class="font-semibold text-red-700">${formatCurrency(wbTotalProfit)}</span>`;
             document.getElementById('wb-avg-revenue').textContent = `• Средняя выручка: ${formatCurrency(wbAvgRevenue)}`;
             document.getElementById('wb-avg-profit').textContent = `• Средняя прибыль: ${formatCurrency(wbAvgProfit)}`;
             document.getElementById('wb-avg-margin').textContent = `• Средняя наценка: ${wbAvgMargin.toFixed(1)}%`;
@@ -287,6 +306,8 @@
             document.getElementById('wb-trend').textContent = `• Тренд: ${wbTrend}`;
 
             // Отображение данных Озон
+            document.getElementById('ozon-total-revenue').innerHTML = `• Общая выручка: <span class="font-semibold text-purple-700">${formatCurrency(ozonTotalRevenue)}</span>`;
+            document.getElementById('ozon-total-profit').innerHTML = `• Общая прибыль: <span class="font-semibold text-purple-700">${formatCurrency(ozonTotalProfit)}</span>`;
             document.getElementById('ozon-avg-revenue').textContent = `• Средняя выручка: ${formatCurrency(ozonAvgRevenue)}`;
             document.getElementById('ozon-avg-profit').textContent = `• Средняя прибыль: ${formatCurrency(ozonAvgProfit)}`;
             document.getElementById('ozon-avg-margin').textContent = `• Средняя наценка: ${ozonAvgMargin.toFixed(1)}%`;
@@ -295,6 +316,8 @@
             document.getElementById('ozon-trend').textContent = `• Тренд: ${ozonTrend}`;
 
             // Отображение общих данных
+            document.getElementById('total-total-revenue').innerHTML = `• Общая выручка: <span class="font-bold text-green-800">${formatCurrency(totalTotalRevenue)}</span>`;
+            document.getElementById('total-total-profit').innerHTML = `• Общая прибыль: <span class="font-bold text-green-800">${formatCurrency(totalTotalProfit)}</span>`;
             document.getElementById('total-avg-revenue').textContent = `• Средняя выручка: ${formatCurrency(totalAvgRevenue)}`;
             document.getElementById('total-avg-profit').textContent = `• Средняя прибыль: ${formatCurrency(totalAvgProfit)}`;
             document.getElementById('total-avg-margin').textContent = `• Средняя наценка: ${totalAvgMargin.toFixed(1)}%`;
