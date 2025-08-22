@@ -32,7 +32,7 @@
                     Динамика показателей по магазинам
                 </h1>
                 <p class="text-gray-600">
-                    Тренды Вайлдберриз vs Интернет Решения ООО (Озон) • сентябрь 2024 - июль 2025 (11 месяцев)
+                    Тренды Вайлдберриз vs Интернет Решения ООО (Озон) • сентябрь 2024 - июль 2025
                 </p>
             </div>
 
@@ -97,128 +97,66 @@
             </div>
 
             <!-- Краткая сводка -->
-            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div class="bg-white rounded-lg shadow-sm p-6">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    📋 Краткая сводка (июль 2025)
+                    📊 Аналитика эффективности за 11 месяцев (сентябрь 2024 - июль 2025)
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="border-l-4 border-red-500 pl-4">
                         <h3 class="font-semibold text-red-600 mb-2">Вайлдберриз</h3>
                         <ul class="text-sm text-gray-600 space-y-1">
-                            <li>• Выручка: 3.9М ₽</li>
-                            <li>• Валовая прибыль: 403К ₽</li>
-                            <li id="wb-margin-display">• Наценка: Loading...</li>
-                            <li id="wb-profitability-display">• Рентабельность: Loading...</li>
+                            <li id="wb-avg-revenue">• Средняя выручка: Loading...</li>
+                            <li id="wb-avg-profit">• Средняя прибыль: Loading...</li>
+                            <li id="wb-avg-margin">• Средняя наценка: Loading...</li>
+                            <li id="wb-avg-profitability">• Средняя рентабельность: Loading...</li>
+                            <li id="wb-monthly-growth">• Средний рост м/м: Loading...</li>
+                            <li id="wb-trend">• Тренд: Loading...</li>
                         </ul>
                     </div>
                     <div class="border-l-4 border-purple-500 pl-4">
                         <h3 class="font-semibold text-purple-600 mb-2">Интернет Решения ООО (Озон)</h3>
                         <ul class="text-sm text-gray-600 space-y-1">
-                            <li>• Выручка: 15.2М ₽</li>
-                            <li>• Валовая прибыль: 2.7М ₽</li>
-                            <li id="ozon-margin-display">• Наценка: Loading...</li>
-                            <li id="ozon-profitability-display">• Рентабельность: Loading...</li>
+                            <li id="ozon-avg-revenue">• Средняя выручка: Loading...</li>
+                            <li id="ozon-avg-profit">• Средняя прибыль: Loading...</li>
+                            <li id="ozon-avg-margin">• Средняя наценка: Loading...</li>
+                            <li id="ozon-avg-profitability">• Средняя рентабельность: Loading...</li>
+                            <li id="ozon-monthly-growth">• Средний рост м/м: Loading...</li>
+                            <li id="ozon-trend">• Тренд: Loading...</li>
                         </ul>
                     </div>
                     <div class="border-l-4 border-green-500 pl-4">
                         <h3 class="font-semibold text-green-600 mb-2">Общий итог</h3>
                         <ul class="text-sm text-gray-600 space-y-1">
-                            <li id="total-revenue-display">• Выручка: Loading...</li>
-                            <li id="total-profit-display">• Валовая прибыль: Loading...</li>
-                            <li id="total-margin-display">• Наценка: Loading...</li>
-                            <li id="total-profitability-display">• Рентабельность: Loading...</li>
+                            <li id="total-avg-revenue">• Средняя выручка: Loading...</li>
+                            <li id="total-avg-profit">• Средняя прибыль: Loading...</li>
+                            <li id="total-avg-margin">• Средняя наценка: Loading...</li>
+                            <li id="total-avg-profitability">• Средняя рентабельность: Loading...</li>
+                            <li id="total-monthly-growth">• Средний рост м/м: Loading...</li>
+                            <li id="total-trend">• Тренд: Loading...</li>
                         </ul>
                     </div>
                 </div>
-            </div>
-
-            <!-- Прирост с сентября 2024 -->
-            <div class="bg-white rounded-lg shadow-sm p-6">
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    📊 Прирост с сентября 2024 (июль 2025)
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="border-l-4 border-red-500 pl-4">
-                        <h3 class="font-semibold text-red-600 mb-3">Вайлдберриз</h3>
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Выручка:</span>
-                                <span id="wb-revenue-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Валовая прибыль:</span>
-                                <span id="wb-profit-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Наценка:</span>
-                                <span id="wb-margin-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Рентабельность:</span>
-                                <span id="wb-profitability-growth" class="text-sm font-medium"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-l-4 border-purple-500 pl-4">
-                        <h3 class="font-semibold text-purple-600 mb-3">Интернет Решения ООО (Озон)</h3>
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Выручка:</span>
-                                <span id="ozon-revenue-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Валовая прибыль:</span>
-                                <span id="ozon-profit-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Наценка:</span>
-                                <span id="ozon-margin-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Рентабельность:</span>
-                                <span id="ozon-profitability-growth" class="text-sm font-medium"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-l-4 border-green-500 pl-4">
-                        <h3 class="font-semibold text-green-600 mb-3">Общий итог</h3>
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Выручка:</span>
-                                <span id="total-revenue-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Валовая прибыль:</span>
-                                <span id="total-profit-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Наценка:</span>
-                                <span id="total-margin-growth" class="text-sm font-medium"></span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-600">Рентабельность:</span>
-                                <span id="total-profitability-growth" class="text-sm font-medium"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
-                <!-- Общая таблица прироста по месяцам -->
+                <!-- Лучшие и худшие месяцы -->
                 <div class="mt-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Прирост выручки по месяцам (% к сентябрю 2024)</h3>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Месяц</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Вайлдберриз</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Озон</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Общий итог</th>
-                                </tr>
-                            </thead>
-                            <tbody id="growth-table" class="bg-white divide-y divide-gray-200">
-                            </tbody>
-                        </table>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🏆 Лучшие и худшие месяцы</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-green-800 mb-3">🥇 Лучшие результаты</h4>
+                            <div class="space-y-2 text-sm">
+                                <div id="best-revenue-month" class="text-green-700"></div>
+                                <div id="best-profit-month" class="text-green-700"></div>
+                                <div id="best-margin-month" class="text-green-700"></div>
+                            </div>
+                        </div>
+                        <div class="bg-red-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-red-800 mb-3">📉 Требуют внимания</h4>
+                            <div class="space-y-2 text-sm">
+                                <div id="worst-revenue-month" class="text-red-700"></div>
+                                <div id="worst-profit-month" class="text-red-700"></div>
+                                <div id="worst-margin-month" class="text-red-700"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -272,6 +210,114 @@
 
         // Получаем данные с правильными расчетами
         const data = calculateMetrics(rawData);
+
+        // Функция аналитики эффективности
+        function updateEfficiencyAnalysis() {
+            // Функция для расчета среднего значения
+            function average(arr) {
+                return arr.reduce((a, b) => a + b, 0) / arr.length;
+            }
+            
+            // Функция для расчета месячного темпа роста
+            function calculateMonthlyGrowthRate(arr) {
+                let growthRates = [];
+                for (let i = 1; i < arr.length; i++) {
+                    if (arr[i-1] > 0 && arr[i] > 0) {
+                        growthRates.push((arr[i] - arr[i-1]) / arr[i-1] * 100);
+                    }
+                }
+                return growthRates.length > 0 ? average(growthRates) : 0;
+            }
+            
+            // Функция для определения тренда
+            function getTrend(arr) {
+                const firstHalf = average(arr.slice(0, Math.floor(arr.length/2)));
+                const secondHalf = average(arr.slice(Math.floor(arr.length/2)));
+                const change = ((secondHalf - firstHalf) / firstHalf) * 100;
+                
+                if (change > 5) return "📈 Растет";
+                if (change < -5) return "📉 Падает";
+                return "📊 Стабильно";
+            }
+            
+            // Функция для поиска лучшего/худшего месяца
+            function findBestWorst(arr, type = 'max') {
+                const index = type === 'max' ? 
+                    arr.indexOf(Math.max(...arr)) : 
+                    arr.indexOf(Math.min(...arr));
+                return { index, value: arr[index], month: data.months[index] };
+            }
+
+            // Расчеты для Вайлдберриз
+            const wbAvgRevenue = average(data.wildberries.revenue);
+            const wbAvgProfit = average(data.wildberries.profit);
+            const wbAvgMargin = average(data.wildberries.margin);
+            const wbAvgProfitability = average(data.wildberries.profitability);
+            const wbMonthlyGrowth = calculateMonthlyGrowthRate(data.wildberries.revenue);
+            const wbTrend = getTrend(data.wildberries.revenue);
+            
+            // Расчеты для Озон
+            const ozonAvgRevenue = average(data.ozon.revenue);
+            const ozonAvgProfit = average(data.ozon.profit);
+            const ozonAvgMargin = average(data.ozon.margin);
+            const ozonAvgProfitability = average(data.ozon.profitability);
+            const ozonMonthlyGrowth = calculateMonthlyGrowthRate(data.ozon.revenue);
+            const ozonTrend = getTrend(data.ozon.revenue);
+            
+            // Расчеты для общих показателей
+            const totalRevenue = data.wildberries.revenue.map((wb, i) => wb + data.ozon.revenue[i]);
+            const totalProfit = data.wildberries.profit.map((wb, i) => wb + data.ozon.profit[i]);
+            const totalCost = data.wildberries.cost.map((wb, i) => wb + data.ozon.cost[i]);
+            const totalMargin = totalProfit.map((profit, i) => (profit / totalCost[i]) * 100);
+            const totalProfitability = totalProfit.map((profit, i) => (profit / totalRevenue[i]) * 100);
+            
+            const totalAvgRevenue = average(totalRevenue);
+            const totalAvgProfit = average(totalProfit);
+            const totalAvgMargin = average(totalMargin);
+            const totalAvgProfitability = average(totalProfitability);
+            const totalMonthlyGrowth = calculateMonthlyGrowthRate(totalRevenue);
+            const totalTrend = getTrend(totalRevenue);
+
+            // Отображение данных Вайлдберриз
+            document.getElementById('wb-avg-revenue').textContent = `• Средняя выручка: ${formatCurrency(wbAvgRevenue)}`;
+            document.getElementById('wb-avg-profit').textContent = `• Средняя прибыль: ${formatCurrency(wbAvgProfit)}`;
+            document.getElementById('wb-avg-margin').textContent = `• Средняя наценка: ${wbAvgMargin.toFixed(1)}%`;
+            document.getElementById('wb-avg-profitability').textContent = `• Средняя рентабельность: ${wbAvgProfitability.toFixed(1)}%`;
+            document.getElementById('wb-monthly-growth').innerHTML = `• Средний рост м/м: <span class="${wbMonthlyGrowth >= 0 ? 'text-green-600' : 'text-red-600'}">${wbMonthlyGrowth >= 0 ? '+' : ''}${wbMonthlyGrowth.toFixed(1)}%</span>`;
+            document.getElementById('wb-trend').textContent = `• Тренд: ${wbTrend}`;
+
+            // Отображение данных Озон
+            document.getElementById('ozon-avg-revenue').textContent = `• Средняя выручка: ${formatCurrency(ozonAvgRevenue)}`;
+            document.getElementById('ozon-avg-profit').textContent = `• Средняя прибыль: ${formatCurrency(ozonAvgProfit)}`;
+            document.getElementById('ozon-avg-margin').textContent = `• Средняя наценка: ${ozonAvgMargin.toFixed(1)}%`;
+            document.getElementById('ozon-avg-profitability').textContent = `• Средняя рентабельность: ${ozonAvgProfitability.toFixed(1)}%`;
+            document.getElementById('ozon-monthly-growth').innerHTML = `• Средний рост м/м: <span class="${ozonMonthlyGrowth >= 0 ? 'text-green-600' : 'text-red-600'}">${ozonMonthlyGrowth >= 0 ? '+' : ''}${ozonMonthlyGrowth.toFixed(1)}%</span>`;
+            document.getElementById('ozon-trend').textContent = `• Тренд: ${ozonTrend}`;
+
+            // Отображение общих данных
+            document.getElementById('total-avg-revenue').textContent = `• Средняя выручка: ${formatCurrency(totalAvgRevenue)}`;
+            document.getElementById('total-avg-profit').textContent = `• Средняя прибыль: ${formatCurrency(totalAvgProfit)}`;
+            document.getElementById('total-avg-margin').textContent = `• Средняя наценка: ${totalAvgMargin.toFixed(1)}%`;
+            document.getElementById('total-avg-profitability').textContent = `• Средняя рентабельность: ${totalAvgProfitability.toFixed(1)}%`;
+            document.getElementById('total-monthly-growth').innerHTML = `• Средний рост м/м: <span class="${totalMonthlyGrowth >= 0 ? 'text-green-600' : 'text-red-600'}">${totalMonthlyGrowth >= 0 ? '+' : ''}${totalMonthlyGrowth.toFixed(1)}%</span>`;
+            document.getElementById('total-trend').textContent = `• Тренд: ${totalTrend}`;
+
+            // Лучшие и худшие месяцы
+            const bestRevenue = findBestWorst(totalRevenue, 'max');
+            const worstRevenue = findBestWorst(totalRevenue, 'min');
+            const bestProfit = findBestWorst(totalProfit, 'max');
+            const worstProfit = findBestWorst(totalProfit, 'min');
+            const bestMargin = findBestWorst(totalMargin, 'max');
+            const worstMargin = findBestWorst(totalMargin, 'min');
+
+            document.getElementById('best-revenue-month').textContent = `💰 Лучшая выручка: ${bestRevenue.month} (${formatCurrency(bestRevenue.value)})`;
+            document.getElementById('best-profit-month').textContent = `💎 Лучшая прибыль: ${bestProfit.month} (${formatCurrency(bestProfit.value)})`;
+            document.getElementById('best-margin-month').textContent = `📈 Лучшая наценка: ${bestMargin.month} (${bestMargin.value.toFixed(1)}%)`;
+
+            document.getElementById('worst-revenue-month').textContent = `💸 Низкая выручка: ${worstRevenue.month} (${formatCurrency(worstRevenue.value)})`;
+            document.getElementById('worst-profit-month').textContent = `📉 Низкая прибыль: ${worstProfit.month} (${formatCurrency(worstProfit.value)})`;
+            document.getElementById('worst-margin-month').textContent = `📊 Низкая наценка: ${worstMargin.month} (${worstMargin.value.toFixed(1)}%)`;
+        }
 
         // Функция для форматирования валюты
         function formatCurrency(value) {
@@ -464,8 +510,7 @@
         }
 
         // Вызов функций
-        updateSummaryDisplay();
-        calculateAndDisplayGrowth();
+        updateEfficiencyAnalysis();
 
         // График 2: Себестоимость
         const costCtx = document.getElementById('costChart').getContext('2d');
