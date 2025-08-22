@@ -76,13 +76,23 @@
                 </div>
             </div>
 
-            <!-- График 5: Наценка -->
+            <!-- График 5: Наценка (исправленная формула) -->
             <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    📋 Наценка (%)
+                    📋 Наценка (%) = Валовая прибыль / Себестоимость
                 </h2>
                 <div class="chart-container">
                     <canvas id="marginChart"></canvas>
+                </div>
+            </div>
+
+            <!-- График 6: Рентабельность -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                    💹 Рентабельность (%) = Валовая прибыль / Выручка
+                </h2>
+                <div class="chart-container">
+                    <canvas id="profitabilityChart"></canvas>
                 </div>
             </div>
 
@@ -97,7 +107,8 @@
                         <ul class="text-sm text-gray-600 space-y-1">
                             <li>• Выручка: 3.9М ₽</li>
                             <li>• Валовая прибыль: 403К ₽</li>
-                            <li>• Наценка: 11.4%</li>
+                            <li id="wb-margin-display">• Наценка: Loading...</li>
+                            <li id="wb-profitability-display">• Рентабельность: Loading...</li>
                         </ul>
                     </div>
                     <div class="border-l-4 border-purple-500 pl-4">
@@ -105,7 +116,8 @@
                         <ul class="text-sm text-gray-600 space-y-1">
                             <li>• Выручка: 15.2М ₽</li>
                             <li>• Валовая прибыль: 2.7М ₽</li>
-                            <li>• Наценка: 21.9%</li>
+                            <li id="ozon-margin-display">• Наценка: Loading...</li>
+                            <li id="ozon-profitability-display">• Рентабельность: Loading...</li>
                         </ul>
                     </div>
                 </div>
@@ -132,6 +144,10 @@
                                 <span class="text-sm text-gray-600">Наценка:</span>
                                 <span id="wb-margin-growth" class="text-sm font-medium"></span>
                             </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Рентабельность:</span>
+                                <span id="wb-profitability-growth" class="text-sm font-medium"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="border-l-4 border-purple-500 pl-4">
@@ -148,6 +164,10 @@
                             <div class="flex justify-between items-center">
                                 <span class="text-sm text-gray-600">Наценка:</span>
                                 <span id="ozon-margin-growth" class="text-sm font-medium"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Рентабельность:</span>
+                                <span id="ozon-profitability-growth" class="text-sm font-medium"></span>
                             </div>
                         </div>
                     </div>
@@ -176,7 +196,7 @@
 
     <script>
         // Данные из Excel файлов
-        const data = {
+        const rawData = {
             months: [
                 "сентябрь 2024", "октябрь 2024", "ноябрь 2024", "Декабрь 2024",
                 "Яеварь 2025", "февраль 2025", "март 2025", "Апрель 2025",
@@ -186,17 +206,41 @@
                 revenue: [5061499.6, 3631804.04, 4296754, 13942410.58, 2196432.59, 4025213, 6175693, 5674564.96, 6649356, 3933461.14],
                 cost: [2606218.37, 2606218.37, 2256487, 9708836.37, 1078915.61, 2124256, 3507219, 3422528.94, 3941421, 1934417.68],
                 expenses: [818363.28, 818363.28, 820414, 2828925, 475453, 503020, 770128, 1049231.95, 1380637, 1595713.83],
-                profit: [1636917.95, 207222.39, 1219853, 1404649.21, 642063.98, 1397937, 1898346, 1202804.07, 1327298, 403329.63],
-                margin: [47.8, 6.1, 39.6, 11.2, 41.3, 53.2, 44.4, 26.9, 24.9, 11.4]
+                profit: [1636917.95, 207222.39, 1219853, 1404649.21, 642063.98, 1397937, 1898346, 1202804.07, 1327298, 403329.63]
             },
             ozon: {
                 revenue: [9478101.03, 11106722.23, 12948704, 13827524.64, 14399817.7, 13388232, 16858885, 12986901.1, 12416880, 15245155.22],
                 cost: [4793858.65, 4793858.65, 6436076, 7491593.3, 6937700.83, 6903617, 9297120, 7117001.02, 7510481, 8831417.36],
                 expenses: [3027975.14, 3027975.14, 4162147, 4021184, 4404780, 3504031, 3505049, 2962843.3, 1965388, 3674050.1],
-                profit: [1656267.24, 3284888.44, 2350481, 2314747.34, 3057336.87, 2980584, 4056716, 2907056.78, 2941011, 2739687.76],
-                margin: [21.2, 42.0, 22.2, 20.1, 27.0, 28.6, 31.7, 28.8, 31.0, 21.9]
+                profit: [1656267.24, 3284888.44, 2350481, 2314747.34, 3057336.87, 2980584, 4056716, 2907056.78, 2941011, 2739687.76]
             }
         };
+
+        // Функция для расчета правильных показателей
+        function calculateMetrics(data) {
+            const calculated = JSON.parse(JSON.stringify(data)); // глубокое копирование
+            
+            // Расчет наценки = валовая прибыль / себестоимость * 100
+            calculated.wildberries.margin = calculated.wildberries.profit.map((profit, i) => 
+                (profit / calculated.wildberries.cost[i]) * 100
+            );
+            calculated.ozon.margin = calculated.ozon.profit.map((profit, i) => 
+                (profit / calculated.ozon.cost[i]) * 100
+            );
+            
+            // Расчет рентабельности = валовая прибыль / выручка * 100
+            calculated.wildberries.profitability = calculated.wildberries.profit.map((profit, i) => 
+                (profit / calculated.wildberries.revenue[i]) * 100
+            );
+            calculated.ozon.profitability = calculated.ozon.profit.map((profit, i) => 
+                (profit / calculated.ozon.revenue[i]) * 100
+            );
+            
+            return calculated;
+        }
+
+        // Получаем данные с правильными расчетами
+        const data = calculateMetrics(rawData);
 
         // Функция для форматирования валюты
         function formatCurrency(value) {
@@ -312,6 +356,10 @@
                 data.wildberries.margin[lastMonth], 
                 data.wildberries.margin[baseMonth]
             );
+            const wbProfitabilityGrowth = calculateGrowth(
+                data.wildberries.profitability[lastMonth], 
+                data.wildberries.profitability[baseMonth]
+            );
 
             // Расчет прироста для Озон
             const ozonRevenueGrowth = calculateGrowth(
@@ -326,15 +374,21 @@
                 data.ozon.margin[lastMonth], 
                 data.ozon.margin[baseMonth]
             );
+            const ozonProfitabilityGrowth = calculateGrowth(
+                data.ozon.profitability[lastMonth], 
+                data.ozon.profitability[baseMonth]
+            );
 
             // Отображение в интерфейсе
             document.getElementById('wb-revenue-growth').innerHTML = formatGrowthPercent(wbRevenueGrowth);
             document.getElementById('wb-profit-growth').innerHTML = formatGrowthPercent(wbProfitGrowth);
             document.getElementById('wb-margin-growth').innerHTML = formatGrowthPercent(wbMarginGrowth);
+            document.getElementById('wb-profitability-growth').innerHTML = formatGrowthPercent(wbProfitabilityGrowth);
             
             document.getElementById('ozon-revenue-growth').innerHTML = formatGrowthPercent(ozonRevenueGrowth);
             document.getElementById('ozon-profit-growth').innerHTML = formatGrowthPercent(ozonProfitGrowth);
             document.getElementById('ozon-margin-growth').innerHTML = formatGrowthPercent(ozonMarginGrowth);
+            document.getElementById('ozon-profitability-growth').innerHTML = formatGrowthPercent(ozonProfitabilityGrowth);
 
             // Заполнение таблицы прироста по месяцам
             const tableBody = document.getElementById('growth-table');
@@ -353,7 +407,8 @@
             }
         }
 
-        // Вызов функции расчета прироста
+        // Вызов функций
+        updateSummaryDisplay();
         calculateAndDisplayGrowth();
 
         // График 2: Себестоимость
@@ -488,7 +543,7 @@
             }
         });
 
-        // График 5: Наценка
+        // График 5: Наценка (исправленная формула)
         const marginCtx = document.getElementById('marginChart').getContext('2d');
         new Chart(marginCtx, {
             type: 'line',
@@ -531,6 +586,65 @@
                 }
             }
         });
+
+        // График 6: Рентабельность
+        const profitabilityCtx = document.getElementById('profitabilityChart').getContext('2d');
+        new Chart(profitabilityCtx, {
+            type: 'line',
+            data: {
+                labels: data.months,
+                datasets: [{
+                    label: 'Вайлдберриз',
+                    data: data.wildberries.profitability,
+                    borderColor: '#dc2626',
+                    backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#dc2626',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5
+                }, {
+                    label: 'Интернет Решения ООО (Озон)',
+                    data: data.ozon.profitability,
+                    borderColor: '#7c3aed',
+                    backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#7c3aed',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    ...chartOptions.scales,
+                    y: {
+                        ...chartOptions.scales.y,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toFixed(1) + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Обновляем отображение текущих значений в сводке
+        function updateSummaryDisplay() {
+            const lastIndex = data.months.length - 1;
+            
+            document.getElementById('wb-margin-display').textContent = 
+                `• Наценка: ${data.wildberries.margin[lastIndex].toFixed(1)}%`;
+            document.getElementById('wb-profitability-display').textContent = 
+                `• Рентабельность: ${data.wildberries.profitability[lastIndex].toFixed(1)}%`;
+                
+            document.getElementById('ozon-margin-display').textContent = 
+                `• Наценка: ${data.ozon.margin[lastIndex].toFixed(1)}%`;
+            document.getElementById('ozon-profitability-display').textContent = 
+                `• Рентабельность: ${data.ozon.profitability[lastIndex].toFixed(1)}%`;
+        }
     </script>
 </body>
 </html>
